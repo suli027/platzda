@@ -2,57 +2,580 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>PlatzDa – Datenschutz, Hilfe, Impressum</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PlatzDa: iPhone-Speicher voll? Fotos kleiner ohne Löschen</title>
+<meta name="description" content="Speicher voll? PlatzDa macht Fotos und Videos auf deinem iPhone kleiner, ohne sie zu löschen. Fotos im Schnitt etwa halb so groß. Kein Konto, keine Werbung.">
+<link rel="canonical" href="https://techsuli.de/platzda/">
+<meta name="apple-itunes-app" content="app-id=6822024283">
+<meta name="theme-color" content="#F4F2ED" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0E0E0F" media="(prefers-color-scheme: dark)">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="de_DE">
+<meta property="og:site_name" content="PlatzDa">
+<meta property="og:url" content="https://techsuli.de/platzda/">
+<meta property="og:title" content="PlatzDa: Platz schaffen, ohne zu löschen">
+<meta property="og:description" content="Die iPhone-App, die Fotos und Videos kleiner macht. Alles bleibt auf deinem iPhone, kein Konto, keine Werbung.">
+<meta property="og:image" content="https://techsuli.de/platzda/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" as="image" href="bilder/hund-winkt.webp" type="image/webp">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MobileApplication",
+  "name": "PlatzDa: Speicherplatz leeren",
+  "operatingSystem": "iOS, iPadOS",
+  "applicationCategory": "UtilitiesApplication",
+  "description": "PlatzDa macht Fotos und Videos auf dem iPhone kleiner, ohne sie zu löschen, findet ähnliche Fotos und hilft beim Aussortieren. Alles auf dem Gerät, ohne Konto und ohne Werbung.",
+  "url": "https://techsuli.de/platzda/",
+  "image": "https://techsuli.de/platzda/og.jpg",
+  "installUrl": "https://apps.apple.com/app/apple-store/id6822024283?pt=129603464&ct=webseite&mt=8",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+  "author": { "@type": "Person", "name": "Sulaiman Sarwari" }
+}
+</script>
 <style>
-  :root { --paper: #f3f2ed; --card: #ffffff; --ink: #0d0d0d; --mute: #6b6b66; --good: #19c37d; }
-  @media (prefers-color-scheme: dark) {
-    :root { --paper: #0d0d0d; --card: #1c1c1f; --ink: #f3f2ed; --mute: #9a9a94; }
+/* Layout: eine ruhige Spalte wie in der App, Bänder von Kante zu Kante, Hund auf grüner Scheibe als Anker. Farben aus PlatzDa (Theme.swift). */
+:root {
+  --paper: #F4F2ED;
+  --card: #FFFFFF;
+  --bubble: #FFFFFF;
+  --ink: #0A0A0B;
+  --good: #19C37D;
+  --good-text: #0B8F59;
+  --good-soft: rgba(25, 195, 125, 0.14);
+  --on-good: #0A0A0B;
+  --danger: #E5281D;
+  --mute: #66655F;
+  --track: #DEDBD3;
+  --shadow: rgba(10, 10, 11, 0.10);
+  --head-bg: rgba(244, 242, 237, 0.86);
+  --font-display: ui-rounded, "SF Pro Rounded", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --r-card: 22px;
+  --max: 1120px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0E0E0F; --card: #1C1C1E; --bubble: #2C2C2F; --ink: #F4F2ED;
+    --good: #22D38A; --good-text: #22D38A; --good-soft: rgba(34, 211, 138, 0.16); --on-good: #0A0A0B;
+    --danger: #FF5347; --mute: #A6A59F; --track: #3A3A3C; --shadow: rgba(0, 0, 0, 0.45);
+    --head-bg: rgba(14, 14, 15, 0.84);
+    color-scheme: dark;
   }
-  * { box-sizing: border-box; }
-  body { margin: 0; background: var(--paper); color: var(--ink); font: 17px/1.5 -apple-system, BlinkMacSystemFont, "SF Pro Rounded", "Segoe UI", sans-serif; }
-  main { max-width: 640px; margin: 0 auto; padding: 32px 16px 64px; }
-  .mark { font-size: 34px; font-weight: 800; letter-spacing: -0.5px; }
-  .mark span { color: var(--good); }
-  .lead { color: var(--mute); margin: 4px 0 32px; }
-  h2 { font-size: 22px; margin: 40px 0 12px; }
-  .card { background: var(--card); border-radius: 22px; padding: 16px 20px; margin-bottom: 12px; }
-  a { color: inherit; }
-  address { font-style: normal; }
+}
+:root[data-theme="dark"] {
+  --paper: #0E0E0F; --card: #1C1C1E; --bubble: #2C2C2F; --ink: #F4F2ED;
+  --good: #22D38A; --good-text: #22D38A; --good-soft: rgba(34, 211, 138, 0.16); --on-good: #0A0A0B;
+  --danger: #FF5347; --mute: #A6A59F; --track: #3A3A3C; --shadow: rgba(0, 0, 0, 0.45);
+  --head-bg: rgba(14, 14, 15, 0.84);
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 1.0625rem/1.55 var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+body::before {
+  content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px);
+  z-index: 10; background: var(--paper);
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--good); outline-offset: 3px; border-radius: 8px; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; letter-spacing: -0.02em; }
+h1 { font-size: clamp(2.4rem, 6.4vw + 0.6rem, 4.25rem); line-height: 1.02; font-weight: 900; }
+h2 { font-size: clamp(1.85rem, 3.6vw + 0.7rem, 2.9rem); line-height: 1.06; font-weight: 900; }
+h3 { font-size: 1.2rem; line-height: 1.25; font-weight: 800; letter-spacing: -0.01em; }
+p { margin: 0; }
+.green { color: var(--good-text); }
+.mute { color: var(--mute); }
+
+.wrap {
+  max-width: var(--max);
+  margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.band { padding-block: clamp(56px, 9vw, 112px); }
+section[id], h2[id] { scroll-margin-top: calc(76px + env(safe-area-inset-top, 0px)); }
+.skip { position: absolute; left: -9999px; }
+.skip:focus { left: 16px; top: 16px; z-index: 30; background: var(--card); padding: 8px 14px; border-radius: 12px; }
+
+/* Kopfzeile */
+.kopf {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+  background: var(--head-bg);
+  -webkit-backdrop-filter: saturate(1.6) blur(16px); backdrop-filter: saturate(1.6) blur(16px);
+}
+.kopf .wrap { display: flex; align-items: center; gap: 20px; min-height: 60px; }
+.marke { font: 900 1.45rem/1 var(--font-display); letter-spacing: -0.03em; text-decoration: none; }
+.marke span { color: var(--good); }
+.nav { display: none; gap: 22px; margin-left: auto; font-size: 0.95rem; }
+.nav a { text-decoration: none; color: var(--mute); }
+.nav a:hover { color: var(--ink); }
+.kopf .knopf { margin-left: auto; min-height: 40px; padding: 0 18px; font-size: 0.95rem; }
+@media (min-width: 720px) { .nav { display: flex; } .kopf .knopf { margin-left: 0; } }
+
+/* Knöpfe */
+.knopf {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 54px; padding: 0 28px; border-radius: 999px;
+  background: var(--good); color: var(--on-good);
+  font: 800 1.08rem/1 var(--font-display); text-decoration: none; letter-spacing: -0.005em;
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+  box-shadow: 0 6px 16px -10px var(--shadow);
+}
+.knopf:hover { transform: translateY(-1px); box-shadow: 0 10px 22px -12px var(--shadow); }
+.knopf:active { transform: scale(0.97); }
+.knopf svg { width: 20px; height: 20px; flex: none; }
+
+/* Hero */
+.hero { padding-block: clamp(20px, 5vw, 72px) clamp(48px, 8vw, 96px); }
+.hero .wrap { display: grid; gap: 28px; align-items: center; }
+.hero-hund { display: flex; align-items: center; gap: 14px; }
+.buehne { position: relative; width: clamp(132px, 34vw, 200px); flex: none; aspect-ratio: 1 / 1.08; }
+.buehne::before {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; aspect-ratio: 1;
+  border-radius: 50%; background: var(--good);
+  box-shadow: 0 22px 40px -18px var(--shadow);
+}
+.buehne img { position: absolute; left: 7%; width: 86%; bottom: 7%; animation: schweben 3.4s ease-in-out infinite alternate; }
+@keyframes schweben { from { transform: translateY(0); } to { transform: translateY(-9px); } }
+.blase {
+  position: relative; background: var(--bubble); border-radius: 20px; padding: 12px 16px;
+  font: 700 1rem/1.3 var(--font-display); box-shadow: 0 8px 24px -14px var(--shadow);
+  max-width: 15rem; animation: blase 0.5s 0.25s cubic-bezier(.2,1.4,.4,1) both;
+}
+.blase::after {
+  content: ""; position: absolute; left: -7px; top: 50%; width: 16px; height: 16px; margin-top: -8px;
+  background: var(--bubble); transform: rotate(45deg); border-radius: 3px;
+}
+@keyframes blase { from { transform: scale(0.85) translateY(6px); } }
+.hero-text { display: grid; gap: 20px; min-width: 0; }
+.vorzeile { font: 700 0.82rem/1 var(--font-body); letter-spacing: 0.08em; text-transform: uppercase; color: var(--mute); }
+.lead { font-size: clamp(1.08rem, 0.6vw + 0.95rem, 1.28rem); color: var(--mute); max-width: 34rem; }
+.lead strong { color: var(--ink); font-weight: 650; }
+.cta { display: grid; gap: 12px; justify-items: start; }
+.vertrauen { display: flex; gap: 8px; align-items: flex-start; font-size: 0.93rem; color: var(--mute); max-width: 30rem; }
+.vertrauen svg { width: 16px; height: 16px; flex: none; margin-top: 3px; color: var(--good-text); }
+.klein { font-size: 0.875rem; color: var(--mute); }
+@media (min-width: 900px) {
+  .hero .wrap { grid-template-columns: 1.15fr 0.85fr; gap: 48px; }
+  .hero-hund { order: 2; flex-direction: column-reverse; align-items: center; gap: 22px; }
+  .buehne { width: min(100%, 340px); }
+  .blase { font-size: 1.15rem; padding: 14px 20px; }
+  .blase::after { left: 50%; top: auto; bottom: -7px; margin: 0 0 0 -8px; }
+}
+
+/* Halb so groß */
+.halb { background: var(--card); }
+.halb .wrap { display: grid; gap: 40px; }
+.halb-kopf { display: grid; gap: 14px; max-width: 40rem; }
+.vergleich { display: grid; gap: 18px; max-width: 40rem; }
+.zeile { display: grid; gap: 8px; }
+.zeile-kopf { display: flex; justify-content: space-between; gap: 12px; font-weight: 650; }
+.zeile-kopf span:last-child { color: var(--mute); font-weight: 500; font-size: 0.95rem; }
+.balken { height: 22px; border-radius: 999px; background: var(--track); overflow: hidden; }
+.balken i { display: block; height: 100%; border-radius: inherit; background: var(--ink); width: 100%; }
+.balken.neu i { background: var(--good); width: 50%; }
+.halb.spielen .balken.neu i { animation: schrumpfen 1.4s 0.2s cubic-bezier(.6,0,.2,1) both; }
+@keyframes schrumpfen { from { width: 100%; } to { width: 50%; } }
+.fakten { display: grid; gap: 10px; padding: 0; margin: 0; list-style: none; }
+.fakten li { display: flex; gap: 10px; align-items: flex-start; }
+.fakten svg { width: 20px; height: 20px; flex: none; margin-top: 2px; color: var(--good-text); }
+.schritte { display: grid; gap: 14px; padding: 0; margin: 0; list-style: none; counter-reset: s; }
+.schritte li { display: grid; grid-template-columns: 40px 1fr; gap: 14px; align-items: start; counter-increment: s; }
+.schritte li::before {
+  content: counter(s); display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%;
+  background: var(--good-soft); color: var(--good-text); font: 900 1.1rem/1 var(--font-display);
+}
+.schritte strong { display: block; font-family: var(--font-display); font-size: 1.08rem; }
+.schritte span { color: var(--mute); }
+@media (min-width: 900px) {
+  .halb .wrap { grid-template-columns: 1fr 1fr; column-gap: 64px; align-items: start; }
+  .halb-kopf { grid-column: 1 / -1; }
+}
+
+/* Funktionen */
+.kopfzeile { display: grid; gap: 12px; max-width: 42rem; margin-bottom: 36px; }
+.funktionen { display: grid; gap: 14px; grid-template-columns: 1fr; }
+.funktion {
+  background: var(--card); border-radius: var(--r-card); padding: 18px;
+  display: grid; grid-template-columns: 84px 1fr; gap: 16px; align-items: center;
+}
+.funktion img { width: 84px; height: 84px; object-fit: contain; }
+.funktion div { display: grid; gap: 6px; min-width: 0; }
+.funktion p { color: var(--mute); font-size: 0.98rem; }
+@media (min-width: 640px) { .funktionen { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 980px) {
+  .funktionen { grid-template-columns: repeat(3, 1fr); }
+  .funktion { grid-template-columns: 1fr; align-items: start; padding: 24px; }
+  .funktion img { width: 108px; height: 108px; }
+}
+
+/* Bilder aus der App */
+.galerie { padding-top: 0; }
+.reihe {
+  display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory;
+  padding-bottom: 12px; scrollbar-width: thin; overscroll-behavior-x: contain;
+}
+.reihe figure { margin: 0; flex: none; width: min(62vw, 250px); scroll-snap-align: start; }
+.reihe img { width: 100%; aspect-ratio: 600 / 1304; border-radius: 22px; box-shadow: 0 14px 34px -22px var(--shadow); background: var(--track); }
+.reihe figcaption { font-size: 0.875rem; color: var(--mute); margin-top: 10px; }
+
+/* Versprechen */
+.versprechen .wrap { display: grid; gap: 28px; align-items: center; }
+.versprechen-bild { width: clamp(150px, 40vw, 240px); }
+.liste { display: grid; gap: 14px; padding: 0; margin: 0; list-style: none; }
+.liste li { background: var(--card); border-radius: var(--r-card); padding: 18px 20px; display: grid; gap: 4px; }
+.liste strong { font-family: var(--font-display); font-size: 1.1rem; }
+.liste span { color: var(--mute); }
+.textlink { font-weight: 650; color: var(--good-text); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+@media (min-width: 900px) { .versprechen .wrap { grid-template-columns: 280px 1fr; gap: 56px; } .versprechen-bild { width: 100%; } }
+
+/* Preise */
+.preise { background: var(--card); }
+.preis-raster { display: grid; gap: 14px; grid-template-columns: 1fr; }
+.preis {
+  border-radius: var(--r-card); padding: 24px; background: var(--paper);
+  display: grid; gap: 10px; align-content: start;
+}
+.preis.haupt { background: var(--good-soft); }
+.preis h3 { font-size: 1.05rem; color: var(--mute); font-weight: 700; }
+.preis .betrag { color: var(--ink); font: 900 2.6rem/1 var(--font-display); letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+.betrag small { font-size: 1rem; font-weight: 700; color: var(--mute); letter-spacing: 0; }
+.preis p { color: var(--mute); }
+.preis .mwst { font-size: 0.8rem; }
+.gratis { display: flex; gap: 14px; align-items: center; background: var(--paper); border-radius: var(--r-card); padding: 16px 20px; margin-bottom: 14px; }
+.gratis img { width: 64px; flex: none; }
+.gratis strong { font-family: var(--font-display); }
+.kleingedruckt { margin-top: 20px; font-size: 0.875rem; color: var(--mute); max-width: 46rem; }
+@media (min-width: 760px) { .preis-raster { grid-template-columns: repeat(3, 1fr); } }
+
+/* Fragen */
+.fragen-liste { display: grid; gap: 10px; max-width: 46rem; }
+details { background: var(--card); border-radius: 18px; padding: 0 20px; }
+summary {
+  list-style: none; cursor: pointer; padding: 18px 0; display: flex; justify-content: space-between; gap: 16px;
+  font: 800 1.08rem/1.3 var(--font-display);
+}
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; font-size: 1.5rem; line-height: 0.9; color: var(--good-text); transition: transform 0.2s ease; }
+details[open] summary::after { transform: rotate(45deg); }
+details p { padding-bottom: 18px; color: var(--mute); }
+
+/* Schluss */
+.schluss .wrap { display: grid; justify-items: start; gap: 22px; }
+.schluss-bild { width: 150px; }
+
+/* Rechtliches (Inhalt unverändert von der alten Seite) */
+.recht { border-top: 1px solid var(--track); }
+.recht-spalte { max-width: 680px; }
+.recht h2 { font-size: 1.6rem; margin: 40px 0 12px; }
+.recht h2:first-of-type { margin-top: 12px; }
+.recht .card { background: var(--card); border-radius: var(--r-card); padding: 16px 20px; margin-bottom: 12px; }
+.recht address { font-style: normal; }
+
+/* Fuß */
+.fuss { padding-block: 32px 48px; font-size: 0.9rem; color: var(--mute); }
+.fuss .wrap { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; justify-content: space-between; }
+.fuss nav { display: flex; flex-wrap: wrap; gap: 8px 20px; }
+.fuss a { text-decoration: none; }
+.fuss a:hover { color: var(--ink); text-decoration: underline; }
+
+/* Sanftes Anheben beim Scrollen (nur Bewegung, Inhalt ist immer sichtbar) */
+@supports (animation-timeline: view()) {
+  .heben { animation: heben linear both; animation-timeline: view(); animation-range: entry 0% entry 45%; }
+  @keyframes heben { from { transform: translateY(22px) scale(0.985); } }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
 </style>
 </head>
 <body>
-<main>
-  <div class="mark">Platz<span>Da</span></div>
-  <p class="lead">Die App, die auf deinem iPhone Platz schafft. Kein Konto, keine Werbung.</p>
+<a class="skip" href="#inhalt">Zum Inhalt springen</a>
 
-  <h2 id="datenschutz">Datenschutz</h2>
-  <div class="card">Diese App sammelt keine Daten.</div>
-  <div class="card">Deine Fotos und Videos werden nur auf deinem iPhone geprüft. Sie werden nirgendwohin gesendet.</div>
-  <div class="card">Es gibt kein Konto, keine Werbung und keine Analyse-Dienste.</div>
-  <div class="card">Die App merkt sich auf deinem iPhone, was du behalten hast, deine Einstellungen und das Ergebnis des letzten Scans. Das verschwindet, wenn du die App löschst.</div>
-  <div class="card">Käufe und Abos wickelt Apple ab. Wir erfahren nicht, wer du bist, und sehen keine Zahlungsdaten. Abos verwaltest und kündigst du in den Einstellungen deiner Apple-ID.</div>
-  <div class="card">Alle Mitteilungen der App entstehen direkt auf deinem iPhone: die Erinnerungen im Gratis-Test, die Meldung nach dem Verkleinern in der Nacht und die Warnung, bevor dein iPhone voll ist. Dafür wird nichts gesendet. Auch das nächtliche Verkleinern passiert nur auf deinem iPhone, während es lädt. Du kannst alles unter „Mehr“ → „Automatisch“ oder in den iPhone-Einstellungen unter „Mitteilungen“ abschalten.</div>
-  <div class="card">Wenn du uns eine E-Mail schreibst, nutzen wir deine Adresse nur, um dir zu antworten, und löschen die Nachricht, wenn die Sache erledigt ist.</div>
-  <div class="card">Verantwortlich ist Sulaiman Sarwari (Anschrift im Impressum). Du hast das Recht auf Auskunft, Berichtigung und Löschung und kannst dich bei einer Datenschutz-Aufsichtsbehörde beschweren. Da die App keine Daten über dich speichert oder sendet, gibt es bei uns in der Regel nichts zu beauskunften.</div>
-
-  <h2 id="hilfe">Hilfe</h2>
-  <div class="card">Fragen oder Probleme? Schreib an <a href="mailto:sukalanit@gmail.com">sukalanit@gmail.com</a>.</div>
-  <div class="card"><strong>Abo kündigen:</strong> iPhone-Einstellungen → dein Name → Abonnements → PlatzDa → Abo kündigen. Das geht auch in der App unter „Mehr“ → „Abo verwalten“. Im Gratis-Test wird nichts berechnet, wenn du spätestens 24 Stunden vor Ende kündigst.</div>
-  <div class="card"><strong>Kauf wiederherstellen:</strong> Auf der Bezahlseite oben links auf „Wiederherstellen“ tippen, mit derselben Apple-ID.</div>
-  <div class="card"><strong>Nutzungsbedingungen:</strong> Es gilt die <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">Standard-Lizenzvereinbarung von Apple</a>.</div>
-
-  <h2 id="impressum">Impressum</h2>
-  <div class="card">
-    <address>
-      Sulaiman Sarwari<br>
-      Alter Markt 48<br>
-      31134 Hildesheim<br>
-      Deutschland<br><br>
-      E-Mail: <a href="mailto:sukalanit@gmail.com">sukalanit@gmail.com</a><br>
-      Telefon: <a href="tel:+491729210073">+49 172 9210073</a>
-    </address>
+<header class="kopf">
+  <div class="wrap">
+    <a class="marke" href="#inhalt" aria-label="PlatzDa, nach oben">Platz<span>Da</span></a>
+    <nav class="nav" aria-label="Seitenbereiche">
+      <a href="#funktionen">Funktionen</a>
+      <a href="#preise">Preise</a>
+      <a href="#fragen">Fragen</a>
+      <a href="#datenschutz">Datenschutz</a>
+    </nav>
+    <a class="knopf" href="https://apps.apple.com/app/apple-store/id6822024283?pt=129603464&amp;ct=webseite&amp;mt=8">Laden</a>
   </div>
+</header>
+
+<main id="inhalt">
+
+  <section class="hero" aria-labelledby="titel">
+    <div class="wrap">
+      <div class="hero-hund">
+        <div class="buehne">
+          <img src="bilder/hund-winkt.webp" width="560" height="643" alt="Der PlatzDa-Chihuahua winkt" fetchpriority="high">
+        </div>
+        <p class="blase">Hallo! Ich mach dir Platz.</p>
+      </div>
+      <div class="hero-text">
+        <p class="vorzeile">App für iPhone und iPad</p>
+        <h1 id="titel">iPhone voll? <span class="green">Platz schaffen, ohne&nbsp;zu&nbsp;löschen.</span></h1>
+        <p class="lead">PlatzDa macht deine Fotos und Videos kleiner, und auf dem iPhone siehst du kaum einen Unterschied. <strong>Echte iPhone-Fotos werden im Schnitt etwa halb so groß.</strong></p>
+        <div class="cta">
+          <a class="knopf" href="https://apps.apple.com/app/apple-store/id6822024283?pt=129603464&amp;ct=webseite&amp;mt=8">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v10m0 0l-4-4m4 4l4-4M4 16h12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Kostenlos im App Store laden
+          </a>
+          <p class="klein">Gratis zum Testen: 15 Löschungen und ein verkleinertes Video. Danach Einmalkauf oder Abo.</p>
+        </div>
+        <p class="vertrauen">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="7" width="11" height="8" rx="2" fill="currentColor"/><path d="M5 7V5.2a3 3 0 0 1 6 0V7" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>
+          Alles bleibt auf deinem iPhone. Kein Konto, keine Cloud, keine Werbung.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="halb band" id="ohne-loeschen" aria-labelledby="halb-titel">
+    <div class="wrap">
+      <div class="halb-kopf">
+        <p class="vorzeile">Platz ohne Löschen</p>
+        <h2 id="halb-titel">Gleiches Foto. <span class="green">Halber Platz.</span></h2>
+        <p class="lead">Statt zu löschen, speichert PlatzDa deine Fotos und Videos platzsparend neu. Datum, Ort und Alben bleiben.</p>
+      </div>
+      <div class="vergleich heben" aria-label="Vergleich: Foto vorher und nachher">
+        <div class="zeile">
+          <div class="zeile-kopf"><span>Vorher</span><span>Original</span></div>
+          <div class="balken"><i></i></div>
+        </div>
+        <div class="zeile">
+          <div class="zeile-kopf"><span>Mit PlatzDa</span><span>im Schnitt etwa halb so groß</span></div>
+          <div class="balken neu"><i></i></div>
+        </div>
+        <ul class="fakten">
+          <li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Fotos ins sparsame Apple-Format (HEIC)</span></li>
+          <li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Live Photos zu normalen Fotos</span></li>
+          <li><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Videos in Full HD</span></li>
+        </ul>
+      </div>
+      <ol class="schritte heben">
+        <li><div><strong>App öffnen</strong><span>PlatzDa zeigt dir in einer Minute, was den Platz frisst.</span></div></li>
+        <li><div><strong>Kleiner machen</strong><span>Mit einem Tipp werden Fotos und Videos kleiner. Du siehst vorher, wie viel du sparst.</span></div></li>
+        <li><div><strong>Originale aufräumen</strong><span>Du bestätigst das Löschen. Die Originale liegen danach noch 30 Tage in „Zuletzt gelöscht“.</span></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="band" id="funktionen" aria-labelledby="funktionen-titel">
+    <div class="wrap">
+      <div class="kopfzeile">
+        <h2 id="funktionen-titel">Was PlatzDa noch kann</h2>
+        <p class="lead">Alles, was du brauchst, wenn der Speicher voll ist. Ohne Fachchinesisch.</p>
+      </div>
+      <div class="funktionen">
+        <article class="funktion heben">
+          <img src="bilder/hund-schlaeft.webp" width="320" height="325" alt="" loading="lazy" decoding="async">
+          <div><h3>Jede Nacht automatisch</h3><p>Während dein iPhone lädt, macht PlatzDa neue Fotos und Videos kleiner. Bevor dein iPhone voll ist, warnt dich PlatzDa.</p></div>
+        </article>
+        <article class="funktion heben">
+          <img src="bilder/hund-detektiv.webp" width="320" height="379" alt="" loading="lazy" decoding="async">
+          <div><h3>Ähnliche Fotos finden</h3><p>Zehn fast gleiche Bilder vom selben Moment? PlatzDa legt sie nebeneinander und schlägt das beste vor. Du entscheidest, was geht.</p></div>
+        </article>
+        <article class="funktion heben">
+          <img src="bilder/hund-wischt.webp" width="320" height="336" alt="" loading="lazy" decoding="async">
+          <div><h3>Wischen und aussortieren</h3><p>Ein Bild nach dem anderen: nach links weg, nach rechts behalten. Mit Tagesziel, damit es nicht zur Arbeit wird.</p></div>
+        </article>
+        <article class="funktion heben">
+          <img src="bilder/hund-filmt.webp" width="320" height="367" alt="" loading="lazy" decoding="async">
+          <div><h3>Videos verkleinern</h3><p>Videos sind meist der größte Brocken. PlatzDa macht sie kleiner, statt sie zu löschen. Du wählst die Qualität.</p></div>
+        </article>
+        <article class="funktion heben">
+          <img src="bilder/hund-stapel.webp" width="320" height="271" alt="" loading="lazy" decoding="async">
+          <div><h3>Screenshots und große Dateien</h3><p>Alte Screenshots nach Monaten sortiert, die größten Dateien auf einen Blick.</p></div>
+        </article>
+        <article class="funktion heben">
+          <img src="bilder/hund-glitzer.webp" width="320" height="387" alt="" loading="lazy" decoding="async">
+          <div><h3>Dein eigener Hund</h3><p>Such dir eins von 6 App-Symbolen aus. Dazu Widgets für Homescreen und Sperrbildschirm.</p></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band galerie" aria-labelledby="galerie-titel">
+    <div class="wrap">
+      <div class="kopfzeile">
+        <h2 id="galerie-titel">So sieht PlatzDa aus</h2>
+      </div>
+      <div class="reihe" tabindex="0" aria-label="Bilder aus der App, seitlich wischen">
+        <figure><img src="bilder/app-1.webp" width="600" height="1304" alt="Übersicht: wie voll das iPhone ist und was man freiräumen kann" loading="lazy" decoding="async"><figcaption>Übersicht</figcaption></figure>
+        <figure><img src="bilder/app-2.webp" width="600" height="1304" alt="Platz schaffen ohne Löschen: Fotos ins Apple-Format, Videos in Full HD" loading="lazy" decoding="async"><figcaption>Ohne Löschen</figcaption></figure>
+        <figure><img src="bilder/app-3.webp" width="600" height="1304" alt="Ähnliche Fotos nebeneinander, das beste ist markiert" loading="lazy" decoding="async"><figcaption>Ähnliche Fotos</figcaption></figure>
+        <figure><img src="bilder/app-4.webp" width="600" height="1304" alt="Video verkleinern mit Auswahl der Qualität" loading="lazy" decoding="async"><figcaption>Videos</figcaption></figure>
+        <figure><img src="bilder/app-5.webp" width="600" height="1304" alt="Fotos wischen: behalten oder weg" loading="lazy" decoding="async"><figcaption>Wischen</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="band versprechen" aria-labelledby="versprechen-titel">
+    <div class="wrap">
+      <img class="versprechen-bild heben" src="bilder/hund-schloss.webp" width="360" height="414" alt="Der PlatzDa-Hund hält ein Schloss" loading="lazy" decoding="async">
+      <div class="hero-text">
+        <h2 id="versprechen-titel">Deine Fotos bleiben bei dir.</h2>
+        <ul class="liste">
+          <li><strong>Alles auf deinem iPhone</strong><span>Kein Konto, keine Cloud, keine Werbung. Die App sendet keine Daten.</span></li>
+          <li><strong>Nichts wird ohne dich gelöscht</strong><span>Du bestätigst jedes Löschen. Gelöschtes bleibt 30 Tage in „Zuletzt gelöscht“ und lässt sich zurückholen.</span></li>
+          <li><strong>In deiner Sprache</strong><span>PlatzDa gibt es in 20 Sprachen, für iPhone und iPad.</span></li>
+        </ul>
+        <p><a class="textlink" href="#datenschutz">Datenschutz lesen</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band preise" id="preise" aria-labelledby="preise-titel">
+    <div class="wrap">
+      <div class="kopfzeile">
+        <h2 id="preise-titel">Erst testen, dann entscheiden.</h2>
+        <p class="lead">Laden ist kostenlos. Wenn dir PlatzDa gefällt, wählst du selbst, wie du zahlst.</p>
+      </div>
+      <div class="gratis">
+        <img src="bilder/hund-spart.webp" width="320" height="368" alt="" loading="lazy" decoding="async">
+        <p><strong>Gratis:</strong> 15 Löschungen und ein verkleinertes Video.</p>
+      </div>
+      <div class="preis-raster">
+        <div class="preis haupt">
+          <h3>Einmalkauf</h3>
+          <p class="betrag">19,99&nbsp;€</p>
+          <p>Einmal zahlen, für immer behalten.</p>
+          <p class="mwst">inkl. MwSt.</p>
+        </div>
+        <div class="preis">
+          <h3>Monat</h3>
+          <p class="betrag">5,99&nbsp;€ <small>/ Monat</small></p>
+          <p>Mit 3 Tagen gratis. Jederzeit kündbar.</p>
+          <p class="mwst">inkl. MwSt.</p>
+        </div>
+        <div class="preis">
+          <h3>Woche</h3>
+          <p class="betrag">1,99&nbsp;€ <small>/ Woche</small></p>
+          <p>Ohne Gratis-Test. Jederzeit kündbar.</p>
+          <p class="mwst">inkl. MwSt.</p>
+        </div>
+      </div>
+      <p class="kleingedruckt">Preise für Deutschland. In anderen Ländern zeigt der App Store den Preis in deiner Währung. Kauf und Abrechnung laufen über deine Apple-ID. Abos verlängern sich automatisch, wenn du nicht spätestens 24 Stunden vor Ablauf kündigst. Kündigen geht in den Einstellungen deiner Apple-ID.</p>
+    </div>
+  </section>
+
+  <section class="band" id="fragen" aria-labelledby="fragen-titel">
+    <div class="wrap">
+      <div class="kopfzeile">
+        <h2 id="fragen-titel">Häufige Fragen</h2>
+      </div>
+      <div class="fragen-liste">
+        <details>
+          <summary>Löscht PlatzDa meine Fotos?</summary>
+          <p>Nur wenn du es bestätigst. Beim Verkleinern legt PlatzDa eine kleinere Fassung an. Die Originale räumst du danach selbst mit einem Tipp auf. Sie bleiben noch 30 Tage in „Zuletzt gelöscht“.</p>
+        </details>
+        <details>
+          <summary>Sieht man den Unterschied?</summary>
+          <p>Auf dem iPhone kaum. Fotos kommen ins sparsame Apple-Format, Live Photos werden normale Fotos, Videos werden in Full HD gespeichert. Datum, Ort und Alben bleiben.</p>
+        </details>
+        <details>
+          <summary>Brauche ich ein Konto?</summary>
+          <p>Nein. PlatzDa arbeitet nur auf deinem iPhone. Es gibt kein Konto, keine Cloud und keine Werbung, und die App sendet keine Daten.</p>
+        </details>
+        <details>
+          <summary>Wie kündige ich ein Abo?</summary>
+          <p>iPhone-Einstellungen → dein Name → Abonnements → PlatzDa → Abo kündigen. Das geht auch in der App unter „Mehr“ → „Abo verwalten“. Mehr steht unter <a class="textlink" href="#hilfe">Hilfe</a>.</p>
+        </details>
+        <details>
+          <summary>Auf welchen Geräten läuft PlatzDa?</summary>
+          <p>Auf iPhone und iPad, in 20 Sprachen.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="band schluss" aria-labelledby="schluss-titel">
+    <div class="wrap">
+      <img class="schluss-bild heben" src="bilder/hund-freut.webp" width="440" height="555" alt="Der PlatzDa-Hund freut sich" loading="lazy" decoding="async">
+      <h2 id="schluss-titel">Mach wieder <span class="green">Platz</span> auf deinem iPhone.</h2>
+      <a class="knopf" href="https://apps.apple.com/app/apple-store/id6822024283?pt=129603464&amp;ct=webseite&amp;mt=8">Kostenlos im App Store laden</a>
+    </div>
+  </section>
+
+  <section class="band recht" aria-label="Datenschutz, Hilfe und Impressum">
+    <div class="wrap">
+      <div class="recht-spalte">
+        <h2 id="datenschutz">Datenschutz</h2>
+        <div class="card">Diese App sammelt keine Daten.</div>
+        <div class="card">Deine Fotos und Videos werden nur auf deinem iPhone geprüft. Sie werden nirgendwohin gesendet.</div>
+        <div class="card">Es gibt kein Konto, keine Werbung und keine Analyse-Dienste.</div>
+        <div class="card">Die App merkt sich auf deinem iPhone, was du behalten hast, deine Einstellungen und das Ergebnis des letzten Scans. Das verschwindet, wenn du die App löschst.</div>
+        <div class="card">Käufe und Abos wickelt Apple ab. Wir erfahren nicht, wer du bist, und sehen keine Zahlungsdaten. Abos verwaltest und kündigst du in den Einstellungen deiner Apple-ID.</div>
+        <div class="card">Alle Mitteilungen der App entstehen direkt auf deinem iPhone: die Erinnerungen im Gratis-Test, die Meldung nach dem Verkleinern in der Nacht und die Warnung, bevor dein iPhone voll ist. Dafür wird nichts gesendet. Auch das nächtliche Verkleinern passiert nur auf deinem iPhone, während es lädt. Du kannst alles unter „Mehr“ → „Automatisch“ oder in den iPhone-Einstellungen unter „Mitteilungen“ abschalten.</div>
+        <div class="card">Wenn du uns eine E-Mail schreibst, nutzen wir deine Adresse nur, um dir zu antworten, und löschen die Nachricht, wenn die Sache erledigt ist.</div>
+        <div class="card">Verantwortlich ist Sulaiman Sarwari (Anschrift im Impressum). Du hast das Recht auf Auskunft, Berichtigung und Löschung und kannst dich bei einer Datenschutz-Aufsichtsbehörde beschweren. Da die App keine Daten über dich speichert oder sendet, gibt es bei uns in der Regel nichts zu beauskunften.</div>
+
+        <h2 id="hilfe">Hilfe</h2>
+        <div class="card">Fragen oder Probleme? Schreib an <a href="mailto:sukalanit@gmail.com">sukalanit@gmail.com</a>.</div>
+        <div class="card"><strong>Abo kündigen:</strong> iPhone-Einstellungen → dein Name → Abonnements → PlatzDa → Abo kündigen. Das geht auch in der App unter „Mehr“ → „Abo verwalten“. Im Gratis-Test wird nichts berechnet, wenn du spätestens 24 Stunden vor Ende kündigst.</div>
+        <div class="card"><strong>Kauf wiederherstellen:</strong> Auf der Bezahlseite oben links auf „Wiederherstellen“ tippen, mit derselben Apple-ID.</div>
+        <div class="card"><strong>Nutzungsbedingungen:</strong> Es gilt die <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">Standard-Lizenzvereinbarung von Apple</a>.</div>
+
+        <h2 id="impressum">Impressum</h2>
+        <div class="card">
+          <address>
+            Sulaiman Sarwari<br>
+            Alter Markt 48<br>
+            31134 Hildesheim<br>
+            Deutschland<br><br>
+            E-Mail: <a href="mailto:sukalanit@gmail.com">sukalanit@gmail.com</a><br>
+            Telefon: <a href="tel:+491729210073">+49 172 9210073</a>
+          </address>
+        </div>
+      </div>
+    </div>
+  </section>
+
 </main>
+
+<footer class="fuss">
+  <div class="wrap">
+    <p>PlatzDa ist eine App von Sulaiman Sarwari.</p>
+    <nav aria-label="Rechtliches">
+      <a href="#datenschutz">Datenschutz</a>
+      <a href="#hilfe">Hilfe</a>
+      <a href="#impressum">Impressum</a>
+      <a href="https://apps.apple.com/app/apple-store/id6822024283?pt=129603464&amp;ct=webseite&amp;mt=8">App Store</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var halb = document.querySelector('.halb');
+  if (!halb || !('IntersectionObserver' in window)) return;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var io = new IntersectionObserver(function (eintraege) {
+    eintraege.forEach(function (e) {
+      if (e.isIntersecting) { halb.classList.add('spielen'); io.disconnect(); }
+    });
+  }, { threshold: 0.35 });
+  io.observe(halb.querySelector('.vergleich'));
+})();
+</script>
 </body>
 </html>
