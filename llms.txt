@@ -1,0 +1,36 @@
+# PlatzDa
+
+> PlatzDa ist eine App für iPhone und iPad, die Fotos und Videos kleiner macht, ohne sie zu löschen. Echte iPhone-Fotos werden im Schnitt etwa halb so groß, auf dem iPhone sieht man kaum einen Unterschied. Alles passiert auf dem Gerät: kein Konto, keine Cloud, keine Werbung, die App schickt dem Entwickler keine Daten. PlatzDa ist eine App von Sulaiman Sarwari aus Hildesheim (Einzelentwickler, @tech.suli).
+
+English: PlatzDa is an iPhone and iPad app that makes photos and videos smaller without deleting them (real iPhone photos shrink to about half their size on average). Everything runs on the device: no account, no cloud, no ads, no data sent to the developer. Available in 20 languages.
+
+## Was PlatzDa kann
+
+- Fotos und Videos platzsparend neu speichern: Fotos ins sparsame Apple-Format (HEIC), Live Photos zu normalen Fotos, Videos in Full HD. Datum, Ort und Alben bleiben.
+- Jede Nacht automatisch, während das iPhone lädt. Warnung, bevor das iPhone voll ist.
+- Ähnliche Fotos finden: fast gleiche Bilder nebeneinander, PlatzDa schlägt das beste vor.
+- Wischen und aussortieren: nach links weg, nach rechts behalten.
+- Videos verkleinern, Qualität selbst wählen.
+- Alte Screenshots nach Monaten, die größten Dateien auf einen Blick.
+- Nichts wird ohne Bestätigung gelöscht. Gelöschtes bleibt 30 Tage in „Zuletzt gelöscht“.
+- 20 Sprachen, iPhone und iPad.
+
+## Preise (Deutschland, inkl. MwSt.)
+
+- Laden kostenlos. Gratis zum Testen: 15 Löschungen und ein verkleinertes Video.
+- Einmalkauf 19,99 € (einmal zahlen, für immer behalten).
+- Monat 5,99 € mit 3 Tagen gratis, jederzeit kündbar.
+- Woche 1,99 € ohne Gratis-Test, jederzeit kündbar.
+
+## Links
+
+- [PlatzDa im App Store](https://apps.apple.com/app/apple-store/id6822024283?pt=129603464&ct=webseite-llms&mt=8)
+- [Website](https://techsuli.de/platzda/)
+- [Anleitung: iPhone-Speicher voll? 9 Schritte, die wirklich Platz schaffen](https://techsuli.de/platzda/iphone-speicher-voll/)
+- [Anleitung: iPhone-Fotos verkleinern ohne Löschen](https://techsuli.de/platzda/fotos-verkleinern/)
+- [Anleitung: iCloud-Speicher voll? 7 Wege, Platz zu schaffen](https://techsuli.de/platzda/icloud-speicher-voll/)
+- [Anleitung: Videos auf dem iPhone verkleinern](https://techsuli.de/platzda/videos-verkleinern/)
+- [Alle Anleitungen](https://techsuli.de/platzda/anleitungen/)
+- [Häufige Fragen](https://techsuli.de/platzda/#fragen)
+- [Hilfe](https://techsuli.de/platzda/#hilfe)
+- [Datenschutz](https://techsuli.de/platzda/#datenschutz)
