@@ -30,6 +30,8 @@ English: PlatzDa is an iPhone and iPad app that makes photos and videos smaller 
 - [Anleitung: iPhone-Fotos verkleinern ohne Löschen](https://techsuli.de/platzda/fotos-verkleinern/)
 - [Anleitung: iCloud-Speicher voll? 7 Wege, Platz zu schaffen](https://techsuli.de/platzda/icloud-speicher-voll/)
 - [Anleitung: Videos auf dem iPhone verkleinern](https://techsuli.de/platzda/videos-verkleinern/)
+- [Anleitung: Doppelte und ähnliche Fotos auf dem iPhone finden und löschen](https://techsuli.de/platzda/aehnliche-fotos/)
+- [Anleitung: Systemdaten auf dem iPhone zu groß? So wird „Sonstiges“ kleiner](https://techsuli.de/platzda/systemdaten/)
 - [Alle Anleitungen](https://techsuli.de/platzda/anleitungen/)
 - [Häufige Fragen](https://techsuli.de/platzda/#fragen)
 - [Hilfe](https://techsuli.de/platzda/#hilfe)
